@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 - Página no encontrada</title>
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: linear-gradient(135deg, #1e1e2f, #2c2c54, #24243e);
+          color: #fff;
+          overflow: hidden;
+        }
+
+        .container {
+          text-align: center;
+          animation: fadeIn 1.5s ease;
+        }
+
+        h1 {
+          font-size: 8em;
+          margin: 0;
+          background: linear-gradient(45deg, #ff4b5c, #ff8a5c, #f9d423);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 0 20px rgba(255, 75, 92, 0.8);
+          animation: float 3s ease-in-out infinite;
+        }
+
+        h2 {
+          font-size: 2.5em;
+          margin: 10px 0;
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        p {
+          font-size: 1.2em;
+          color: #ccc;
+          margin: 15px 0 30px;
+        }
+
+        a {
+          padding: 14px 30px;
+          font-size: 1.1em;
+          background: linear-gradient(90deg, #ff4b5c, #ff8a5c);
+          color: #fff;
+          text-decoration: none;
+          border-radius: 50px;
+          box-shadow: 0 0 15px rgba(255, 75, 92, 0.5);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        a:hover {
+          transform: scale(1.1);
+          box-shadow: 0 0 25px rgba(255, 75, 92, 0.9);
+        }
+
+        /* Animaciones */
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Partículas decorativas */
+        .bubble {
+          position: absolute;
+          bottom: -100px;
+          width: 40px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          animation: rise 10s infinite ease-in;
+        }
+
+        .bubble:nth-child(1) { left: 20%; animation-duration: 12s; width: 20px; height: 20px; }
+        .bubble:nth-child(2) { left: 50%; animation-duration: 15s; }
+        .bubble:nth-child(3) { left: 70%; animation-duration: 8s; width: 25px; height: 25px; }
+        .bubble:nth-child(4) { left: 90%; animation-duration: 20s; width: 60px; height: 60px; }
+
+        @keyframes rise {
+          0% { transform: translateY(0) scale(1); opacity: 0; }
+          10% { opacity: 1; }
+          100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>404</h1>
+    <h2>¡Oops! Página no encontrada</h2>
+    <p>Parece que te has perdido en el ciberespacio... 🚀</p>
+    <a href="/">Volver al inicio</a>
+</div>
+
+<!-- burbujas decorativas -->
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+</body>
+</html>

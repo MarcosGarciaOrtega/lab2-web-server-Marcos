@@ -4,7 +4,7 @@
 The first step I took was to create a custom error page. This page is displayed by the spring boot application when it encounters an error. The file was named error.html and was placed in src/main/resources/templates directory. Then I implemented a test to verify that the error page was being displayed correctly.
 The second feature I added was a new endpoint that returns the current server time (/time). The endpoint returns the time in json format.
 ```json
-{"time": "2024-06-15T14:30:00Z"}
+{"time":"2025-10-07T13:43:54.288577203"}
 ```
 I also implemented a test to verify that the endpoint was working correctly.
 

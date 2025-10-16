@@ -22,19 +22,19 @@ class IntegrationTest {
     private lateinit var restTemplate: TestRestTemplate
 
     @Test
-    fun `test to check if the error page is served` (){
-
+    fun `test to check if the error page is served`() {
         val headers = HttpHeaders()
         headers.accept = listOf(MediaType.TEXT_HTML)
 
         val entity = HttpEntity<String>(headers)
 
-        val response = restTemplate.exchange(
-            "http://localhost:$port",
-            HttpMethod.GET,
-            entity,
-            String::class.java
-        )
+        val response =
+            restTemplate.exchange(
+                "http://localhost:$port",
+                HttpMethod.GET,
+                entity,
+                String::class.java,
+            )
 
         assertThat(response.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
         assertThat(response.body).contains("¡Oops! Página no encontrada")

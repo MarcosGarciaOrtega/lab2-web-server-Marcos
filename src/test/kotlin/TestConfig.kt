@@ -22,6 +22,7 @@ import javax.net.ssl.X509TrustManager
 class TestConfig {
     @Bean
     fun testRestTemplate(): TestRestTemplate {
+        // Trust manager that does not validate certificate chains (for testing only)
         val trustAllCerts =
             arrayOf<TrustManager>(
                 object : X509TrustManager {
@@ -30,28 +31,25 @@ class TestConfig {
                     override fun checkClientTrusted(
                         chain: Array<X509Certificate>,
                         authType: String,
-                    ) {
-                    }
+                    ) {}
 
                     override fun checkServerTrusted(
                         chain: Array<X509Certificate>,
                         authType: String,
-                    ) {
-                    }
+                    ) {}
                 },
             )
 
+        // Create SSL context using the trust-all trust manager
         val sslContext =
             SSLContext.getInstance("TLS").apply {
                 init(null, trustAllCerts, SecureRandom())
             }
 
-        val sslSocketFactory =
-            SSLConnectionSocketFactory(
-                sslContext,
-                NoopHostnameVerifier.INSTANCE,
-            )
+        // Create SSL socket factory with the SSL context
+        val sslSocketFactory = SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE)
 
+        // Register HTTP and HTTPS socket factories
         val socketFactoryRegistry =
             RegistryBuilder
                 .create<org.apache.hc.client5.http.socket.ConnectionSocketFactory>()
@@ -59,17 +57,22 @@ class TestConfig {
                 .register("https", sslSocketFactory)
                 .build()
 
+        // Create connection manager with custom socket factories
         val connectionManager = PoolingHttpClientConnectionManager(socketFactoryRegistry)
+
+        // Create HTTP client using the connection manager
         val httpClient =
             HttpClients
                 .custom()
                 .setConnectionManager(connectionManager)
                 .build()
 
-        val factory = HttpComponentsClientHttpRequestFactory(httpClient)
+        // Use the HTTP client for Spring's RestTemplate
+        val requestFactory = HttpComponentsClientHttpRequestFactory(httpClient)
 
+        // Return TestRestTemplate for integration testing
         return TestRestTemplate(
-            RestTemplateBuilder().requestFactory(Supplier { factory }),
+            RestTemplateBuilder().requestFactory(Supplier { requestFactory }),
         )
     }
 }
